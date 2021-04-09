@@ -1,16 +1,16 @@
-from flask import Flask
-from flask import render_template
-from functools import wraps # decorators
 import sqlite3
-from flask import g
+from flask import Flask, render_template, g
 
 PATH = 'db/jobs.sqlite'
+
+app = Flask(__name__)
+
 def open_connection():
     connection = getattr(g, '_connection', None)
-    if connection is None:
+    if connection == None:
         connection = g._connection = sqlite3.connect(PATH)
-        connection.row_factory = sqlite3.Row
-        return connection
+    connection.row_factory = sqlite3.Row
+    return connection
 
 def execute_sql(sql, values=(), commit=False, single=False):
     connection = open_connection()
@@ -18,22 +18,24 @@ def execute_sql(sql, values=(), commit=False, single=False):
     if commit == True:
         results = connection.commit()
     else:
-        results == cursor.fetchone() if single else cursor.fetchall()
+        results = cursor.fetchone() if single else cursor.fetchall()
+
     cursor.close()
     return results
 
 @app.teardown_appcontext
 def close_connection(exception):
     connection = getattr(g, '_connection', None)
-    return connection
     if connection is not None:
-        close_connection
-
-#create instance of flask class for our web app. pass name variable to flask constructor
-app = Flask(__name__)
+        connection.close()
 
 @app.route('/')
 @app.route('/jobs')
 def jobs():
-    # returns call to render_template(), parameter index.html
-    return render_template('index.html')
+    jobs = execute_sql('SELECT job.id, job.title, job.description, job.salary, employer.id as employer_id, employer.name as employer_name FROM job JOIN employer ON employer.id = job.employer_id')
+    return render_template('index.html', jobs=jobs)
+
+@app.route('/job/<job_id>')
+def job(job_id):
+    job = execute_sql('SELECT job.id, job.title, job.description, job.salary, employer.id as employer_id, employer.name as employer_name FROM job JOIN employer ON employer.id = job.employer_id WHERE job.id = ?', [job_id], single=True)
+    return render_template('job.html', job=job) 
