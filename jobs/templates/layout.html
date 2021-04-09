@@ -1,7 +1,18 @@
+<<<<<<< HEAD
 <!-- templates/layout.html -->
 <!doctype html>
 <html>
   <head>
+=======
+{% from '_macros.html' import show_job, show_jobs with context %}
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bulma.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/app.css')}}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+
+>>>>>>> 6220ffb41d00577be3b0a09c27e11f2e8e35f23c
     <title>Job Board</title>
   </head>
   <body>
@@ -13,6 +24,9 @@
     </div>
   </body>
 </html>
+<<<<<<< HEAD
 <link rel="stylesheet" href="{{ url_for('static', filename='css/bulma.min.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}"> 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+=======
+>>>>>>> 6220ffb41d00577be3b0a09c27e11f2e8e35f23c
