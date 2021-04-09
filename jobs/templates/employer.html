@@ -6,7 +6,7 @@
 {{ show_jobs(jobs)}}
   <h2>Reviews</h2>
 
-      {% for in reviews: %}
+      {% for review in reviews: %}
       {% endfor %}
     
     <div class="box">
@@ -18,9 +18,9 @@
         </div>
         <div class="media-content">
           <div class="content">
-              <p><strong>title</strong>
-              <small>status</small>
-              <small>date</small>
+              <p><strong>{{ review['title'] }}</strong>
+              <small>{{ review['status'] }}</small>
+              <small>{{ review['date'] }}</small>
               review</p>
           </div>
         </div>
