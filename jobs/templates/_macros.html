@@ -7,14 +7,9 @@
     </header>
     <div class="card-content">
       <div class="content">
-        <p><a>{{ job['employer_name'] }}</a>
-            <br>
-            ${{ job['salary'] }}
-            <br>
-            {{ job['description'] }}
-        </a></p>
-        <div class = "columns"></div>
-        <div class = "is-multiline">{%%}</div>
+        <a>{{ job['employer_name'] }}</a><br>
+        ${{ job['salary'] }}<br>
+        {{ job['description'] }}
       </div>
     </div>
   </div>
@@ -26,5 +21,6 @@
         <div class="column is-half">
             {{ show_job(job)}}
         </div>
+    {% endfor %}
 </div>
 {% endmacro %}
