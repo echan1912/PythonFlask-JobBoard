@@ -1,3 +1,4 @@
-import flask from Flask 
-import render_template from Flask
+from flask import Flask 
+from flask import render_template
+
 
